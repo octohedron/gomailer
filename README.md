@@ -43,7 +43,7 @@ Now you got the email server working, might need to add an nginx proxy, add your
 + Install certbot with `apt-get install python-certbot-nginx`
 + Run certbot with `certbot --nginx`
 
-Your new nginx.conf file should look like this
+Your new `site.conf` file should look like this
 
 ```nginx
 server {
