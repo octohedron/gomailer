@@ -38,6 +38,8 @@ Now you got the email server working, might need to add an nginx proxy, add your
 + Install certbot with `apt-get install python-certbot-nginx`
 + Run certbot with `certbot --nginx`
 
+Your new nginx.conf file should look like this
+
 ```nginx
 server {
     server_name email.example.com;
@@ -61,3 +63,29 @@ server {
     return 404; # managed by Certbot
 }
 ```
+
+Reload nginx with `service nginx restart`
+
+Now you can send emails through gmail, for example, with javascript
+
+``` javascript
+var formData = new FormData();
+formData.append("name", "example name");
+formData.append("email", "example email");
+formData.append("subject", "example subject");
+formData.append("message", "Hello World");
+// make the request, change the server address
+fetch("https://email.example.com/sendemail", {
+  method: "POST",
+  body: formData
+}).then(result => {
+  result.text().then(result => {
+    if (result == 'sent') {
+      alert("Email sent successfully :)")
+    } else {
+      alert("There was a problem :)")
+    }
+  });
+});
+```
+
