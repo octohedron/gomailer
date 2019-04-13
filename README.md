@@ -29,7 +29,12 @@ Serving email server in port 5555
 + Test it with curl
 
 ```bash
-$ curl -X POST -F 'email=example@gmail.com' -F 'name=example' -F 'subject=ExampleSubject' -F 'message=HelloWorld' http://127.0.0.1:5555/sendemai
+$ curl -X POST \
+ -F 'email=example@gmail.com' \
+ -F 'name=example' \
+ -F 'subject=ExampleSubject' \
+ -F 'message=HelloWorld' \
+  http://127.0.0.1:5555/sendemail
 sent
 ```
 
