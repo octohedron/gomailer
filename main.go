@@ -38,7 +38,7 @@ func setCORSHeaders(w http.ResponseWriter) http.ResponseWriter {
 func sendEmail(w http.ResponseWriter, r *http.Request) {
 	// Set headers for CORS
 	setCORSHeaders(w)
-	// We only allow for POST requests
+	// We only allow POST requests
 	if r.Method != "POST" {
 		http.Error(w, fmt.Sprintf("Forbidden request"), 403)
 		return
