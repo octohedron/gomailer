@@ -38,9 +38,9 @@ func setCORSHeaders(w http.ResponseWriter) http.ResponseWriter {
 func sendEmail(w http.ResponseWriter, r *http.Request) {
 	// Set headers for CORS
 	setCORSHeaders(w)
-	// We only allow for POST requests here
+	// We only allow for POST requests
 	if r.Method != "POST" {
-		http.Error(w, fmt.Sprintf("{ \"error\": \"%s\" }", "Forbidden request"), 403)
+		http.Error(w, fmt.Sprintf("Forbidden request"), 403)
 		return
 	}
 	// Set email values
@@ -52,7 +52,7 @@ func sendEmail(w http.ResponseWriter, r *http.Request) {
 	clientName := r.FormValue("name")
 	subject := r.FormValue("subject")
 	message := r.FormValue("message")
-	// Make email message
+	// Build email
 	msg := "From: " + clientName + " " + clientEmail + "\n" +
 		"To: " + to + "\n" +
 		"Subject: " + subject + "\n\n" +
@@ -61,12 +61,12 @@ func sendEmail(w http.ResponseWriter, r *http.Request) {
 	err := smtp.SendMail("smtp.gmail.com:587",
 		smtp.PlainAuth("", from, pass, "smtp.gmail.com"),
 		from, []string{to}, []byte(msg))
-	// Check if there was a problem
+	// Check if there was a problem with SMTP
 	if err != nil {
 		http.Error(w, fmt.Sprintf("smtp error: %s", err), 400)
 		return
 	}
-	// Write sent
+	// Write 'sent' as response
 	w.Write([]byte("sent"))
 }
 
